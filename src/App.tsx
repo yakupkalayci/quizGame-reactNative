@@ -1,19 +1,12 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import DefaultLayout from './layouts/DefaultLayout';
+import Router from './navigation/Router';
+
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView>
-      <Text>Home</Text>
-    </SafeAreaView>
+    <DefaultLayout>
+      <Router />
+    </DefaultLayout>
   );
 }
 
