@@ -13,7 +13,7 @@ export default function Question(props: QuestionProps) {
 
   return (
     <View style={styles.questionContainer}>
-      <Text style={styles.questionText}>{questions[index].text}</Text>
+      <Text style={styles.questionText}>{questions[index]?.question}</Text>
     </View>
   );
 }

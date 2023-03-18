@@ -1,29 +1,19 @@
-import { useState } from 'react';
-import { View } from 'react-native'
+import { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import Question from '../../components/question/Question';
-import RadioGroup from '../../components/radio/RadioGroup'
+import RadioGroup from '../../components/radio/RadioGroup';
 import NextButton from './_partials/NextButton';
 
 import styles from '../../assets/styles/Quiz.style';
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
 
-function Quiz({navigation}) {
+function Quiz({ navigation }) {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState();
 
-  const questions = [
-    {
-      id: 1,
-      text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit?'
-    },
-    {
-      id: 2,
-      text: 'Lorem ipsum?'
-    },
-    {
-      id: 3,
-      text: 'Lorem ipsum dolor sit amet?'
-    }
-  ];
+  const questions = useSelector((state:RootState) => state.questions.questions);
+
 
   const options = [
     {
@@ -38,11 +28,11 @@ function Quiz({navigation}) {
 
   const handleSelect = (value) => {
     setSelected(value);
-  }
+  };
 
   const handleNext = () => {
-    if(index + 1 <= questions.length - 1) {
-      if(selected) {
+    if (index + 1 <= questions.length - 1) {
+      if (selected) {
         setIndex((prev) => prev + 1);
       } else {
         console.log('Please answer the question!');
@@ -50,7 +40,7 @@ function Quiz({navigation}) {
     } else {
       navigation.navigate('Result');
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -58,7 +48,7 @@ function Quiz({navigation}) {
       <RadioGroup data={options} selected={selected} onSelect={handleSelect} />
       <NextButton onPress={handleNext} />
     </View>
-  )
+  );
 }
 
-export default Quiz
+export default Quiz;

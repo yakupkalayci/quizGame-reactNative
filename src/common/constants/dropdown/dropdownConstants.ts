@@ -3,3 +3,5 @@ export enum DROPDOWN_DIFFICULY_VALUES {
   MEDIUM = 'medium',
   HARD = 'hard'
 }
+
+export type DifficultyTypes = 'easy' | 'medium' | 'hard';
