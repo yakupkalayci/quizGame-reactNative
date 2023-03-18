@@ -6,7 +6,7 @@ import NextButton from './_partials/NextButton';
 
 import styles from '../../assets/styles/Quiz.style';
 
-function Quiz() {
+function Quiz({navigation}) {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState();
 
@@ -48,7 +48,7 @@ function Quiz() {
         console.log('Please answer the question!');
       }
     } else {
-      console.log('Last Question!!');
+      navigation.navigate('Result');
     }
   }
 

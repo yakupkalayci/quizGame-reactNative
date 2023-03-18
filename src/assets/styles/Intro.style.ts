@@ -24,20 +24,6 @@ export default StyleSheet.create({
     padding: 10,
     marginBottom: 15
   },
-  btn: {
-    width: '60%',
-    backgroundColor: '#9a2af0',
-    marginTop: 10,
-    padding: 10,
-    borderRadius: 10,
-    alignItems: 'center'
-  },
-  btnText: {
-    fontWeight: 'bold',
-    fontSize: 21,
-    color: '#e6e6e6',
-    letterSpacing: 1.4
-  },
   pickerContainer: {
     width: '60%',
     marginBottom: 15

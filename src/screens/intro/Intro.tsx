@@ -1,10 +1,12 @@
 // React
 import { useState } from 'react';
-import { KeyboardAvoidingView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Text, TextInput } from 'react-native';
 
 import { DROPDOWN_DIFFICULY_VALUES } from '../../common/constants/dropdown/dropdownConstants';
 
 import { Picker } from '@react-native-picker/picker';
+
+import Button from '../../components/button/Button';
 
 import styles from '../../assets/styles/Intro.style';
 
@@ -32,9 +34,7 @@ function Intro({ navigation }) {
         <Picker.Item label="Medium" value={DROPDOWN_DIFFICULY_VALUES.MEDIUM} enabled={true} style={styles.pickerItem} />
         <Picker.Item label="Hard" value={DROPDOWN_DIFFICULY_VALUES.HARD} style={styles.pickerItem} />
       </Picker>
-      <TouchableOpacity style={styles.btn} onPress={() => handleStart()}>
-        <Text style={styles.btnText}>Start</Text>
-      </TouchableOpacity>
+      <Button title="Start" onPress={handleStart} />
     </KeyboardAvoidingView>
   );
 }

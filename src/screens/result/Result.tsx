@@ -1,9 +1,24 @@
 import React from 'react'
-import { View } from 'react-native/types'
+import { View, Text } from 'react-native'
 
-function Result() {
+import Button from '../../components/button/Button';
+
+import styles from '../../assets/styles/Result.style';
+
+function Result({ navigation }) {
+  const fakeStore = 5;
+
+  const tryAgain = () => {
+    navigation.navigate('Intro');
+  }
+
   return (
-    <View>Result</View>
+    <View style={styles.container}>
+      <Text style={styles.mainText}>Game Over</Text>
+      <Text style={styles.infoText}>Your score {fakeStore} out of 10</Text>
+      <Button title="Try Again" onPress={tryAgain} btnStyle={styles.btn} />
+      <Button title="Save Score" onPress={tryAgain} />
+    </View>
   )
 }
 
