@@ -7,6 +7,9 @@ import NextButton from './_partials/NextButton';
 import styles from '../../assets/styles/Quiz.style';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
+import { setAnswer } from '../../store/questions/questionsSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 
 function Quiz({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -14,15 +17,17 @@ function Quiz({ navigation }) {
 
   const questions = useSelector((state:RootState) => state.questions.questions);
 
+  const dispatch:AppDispatch = useDispatch();
+
 
   const options = [
     {
       id: 1,
-      text: 'true'
+      text: 'True'
     },
     {
       id: 2,
-      text: 'false'
+      text: 'False'
     }
   ];
 
@@ -30,16 +35,29 @@ function Quiz({ navigation }) {
     setSelected(value);
   };
 
+  const checkAnswer = () => {
+    const rightAnswer = questions[index].correct_answer;
+    const result = selected === rightAnswer;
+
+    dispatch(setAnswer({ userAnswer: selected, result, index }));
+    console.log("RESULT:", result);
+  }
+
   const handleNext = () => {
-    if (index + 1 <= questions.length - 1) {
-      if (selected) {
+    if(selected) {
+      checkAnswer();
+      if (index + 1 <= questions.length - 1) {
         setIndex((prev) => prev + 1);
+        setSelected(undefined);
       } else {
-        console.log('Please answer the question!');
+        setTimeout(() => {
+          navigation.navigate('Result', { questions });
+        }, 3000);
       }
     } else {
-      navigation.navigate('Result');
+      console.log('Please answer the question!');
     }
+
   };
 
   return (
