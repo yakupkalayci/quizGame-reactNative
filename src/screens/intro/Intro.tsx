@@ -6,11 +6,17 @@ import { RootState } from '../../store/store';
 import { AppDispatch } from '../../store/store';
 import { setUser, setDifficultyState } from '../../store/user/userSlice';
 
+// Constants
 import { DROPDOWN_DIFFICULY_VALUES } from '../../common/constants/dropdown/dropdownConstants';
 import { DifficultyTypes } from '../../common/constants/dropdown/dropdownConstants';
+import { ALERT_TYPE } from 'react-native-alert-notification';
+
+// Utils
+import { showToast } from '../../common/utils/showToast';
 
 import { Picker } from '@react-native-picker/picker';
 
+// Components
 import Button from '../../components/button/Button';
 
 import styles from '../../assets/styles/Intro.style';
@@ -24,10 +30,14 @@ function Intro({ navigation }) {
   const dispatch:AppDispatch = useDispatch();
 
   const handleStart = () => {
-    dispatch(setUser(username));
-    dispatch(setDifficultyState(difficulty));
-    dispatch({ type: 'fetchQuestions' })
-    navigation.navigate('Quiz');
+    if(username) {
+      dispatch(setUser(username));
+      dispatch(setDifficultyState(difficulty));
+      dispatch({ type: 'fetchQuestions' })
+      navigation.navigate('Quiz');
+    } else {
+      showToast(ALERT_TYPE.WARNING, 'Warning', 'Please write your username!');
+    }
   };
 
   return (

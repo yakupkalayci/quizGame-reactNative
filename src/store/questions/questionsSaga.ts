@@ -1,9 +1,9 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { fetchQuestions, fetchQuestionsSuccess, fetchQuestionsFailure } from './questionsSlice';
 import axios from 'axios';
 
-async function fetchQuestionsWorker() {
-    return await axios.get('https://opentdb.com/api.php?amount=10&type=boolean');
+async function fetchQuestionsWorker(difficulty) {
+    return await axios.get(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=boolean`);
 }
 
 export const convert = data => data.forEach((item) => {
@@ -16,7 +16,8 @@ export const convert = data => data.forEach((item) => {
 function* fetchQuestionsSaga() {
     yield put(fetchQuestions());
     try {
-        const response = yield call(fetchQuestionsWorker);
+        const difficulty = yield select(state => state.user.difficulty);
+        const response = yield call(() => fetchQuestionsWorker(difficulty));
 
         convert(response.data.results);
 

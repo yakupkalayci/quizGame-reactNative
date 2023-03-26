@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
 import Question from '../../components/question/Question';
 import RadioGroup from '../../components/radio/RadioGroup';
 import NextButton from './_partials/NextButton';
+
+import { showToast } from '../../common/utils/showToast';
+import { ALERT_TYPE } from 'react-native-alert-notification';
 
 import styles from '../../assets/styles/Quiz.style';
 import { RootState } from '../../store/store';
@@ -55,7 +58,7 @@ function Quiz({ navigation }) {
         }, 3000);
       }
     } else {
-      console.log('Please answer the question!');
+      showToast(ALERT_TYPE.WARNING, 'Warning', 'Please choose an answer!');
     }
 
   };
