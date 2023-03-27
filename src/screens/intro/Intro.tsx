@@ -1,10 +1,10 @@
 // React
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Text, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { AppDispatch } from '../../store/store';
-import { setUser, setDifficultyState } from '../../store/user/userSlice';
+import { setUser, setDifficultyState, setScreenName } from '../../store/user/userSlice';
 
 // Constants
 import { DROPDOWN_DIFFICULY_VALUES } from '../../common/constants/dropdown/dropdownConstants';
@@ -22,7 +22,11 @@ import Button from '../../components/button/Button';
 import styles from '../../assets/styles/Intro.style';
 
 function Intro({ navigation }) {
-  const { username: usernameState, difficulty: difficultyState } = useSelector((state: RootState) => state.user);
+  const { username: usernameState, difficulty: difficultyState , screen} = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    setScreenName('intro')
+  }, []);
 
   const [username, setUsername] = useState(usernameState);
   const [difficulty, setDifficulty] = useState<DifficultyTypes>(difficultyState);
@@ -35,6 +39,7 @@ function Intro({ navigation }) {
       dispatch(setDifficultyState(difficulty));
       dispatch({ type: 'fetchQuestions' })
       navigation.navigate('Quiz');
+      dispatch(setScreenName('quiz'));
     } else {
       showToast(ALERT_TYPE.WARNING, 'Warning', 'Please write your username!');
     }

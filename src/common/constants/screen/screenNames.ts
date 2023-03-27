@@ -1,0 +1,1 @@
+export type screenNames = 'intro' | 'quiz' | 'result';

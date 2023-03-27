@@ -11,14 +11,15 @@ import styles from '../../assets/styles/Quiz.style';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { setAnswer } from '../../store/questions/questionsSlice';
+import { setScreenName } from '../../store/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 
 function Quiz({ navigation }) {
-  const [index, setIndex] = useState(0);
+  // const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState();
 
-  const questions = useSelector((state:RootState) => state.questions.questions);
+  const { questions, index } = useSelector((state:RootState) => state.questions);
 
   const dispatch:AppDispatch = useDispatch();
 
@@ -50,11 +51,12 @@ function Quiz({ navigation }) {
     if(selected) {
       checkAnswer();
       if (index + 1 <= questions.length - 1) {
-        setIndex((prev) => prev + 1);
+        // setIndex((prev) => prev + 1);
         setSelected(undefined);
       } else {
         setTimeout(() => {
           navigation.navigate('Result', { questions });
+          dispatch(setScreenName('result'));
         }, 3000);
       }
     } else {

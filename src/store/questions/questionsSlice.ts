@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   error: null,
-  questions: []
+  questions: [],
+  index: 1
 };
 
 export const questionsSlice = createSlice({
@@ -22,14 +23,18 @@ export const questionsSlice = createSlice({
     },
     setAnswer: (state, action) => {
       const { userAnswer, result, index } = action.payload;
+      state.index = state.index + 1;
 
       state.questions[index].users_answer = {
         result,
         selected: userAnswer
       };
+    },
+    resetIndex: (state) => {
+      state.index = 1;
     }
   }
 });
 
-export const { fetchQuestions, fetchQuestionsSuccess, fetchQuestionsFailure, setAnswer } = questionsSlice.actions;
+export const { fetchQuestions, fetchQuestionsSuccess, fetchQuestionsFailure, setAnswer, resetIndex } = questionsSlice.actions;
 export default questionsSlice.reducer;

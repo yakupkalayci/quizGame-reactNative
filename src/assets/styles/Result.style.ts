@@ -20,5 +20,14 @@ export default StyleSheet.create({
   },
   btn: {
     backgroundColor: 'green'
+  },
+  badScore: {
+    color: 'red'
+  },
+  goodScore: {
+    color: 'green'
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 });

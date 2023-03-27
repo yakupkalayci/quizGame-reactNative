@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 
+import { useDispatch } from 'react-redux';
+import { resetIndex } from '../../store/questions/questionsSlice';
+
 import Button from '../../components/button/Button';
 
 import styles from '../../assets/styles/Result.style';
 
 function Result({ navigation, route }) {
+  const dispatch = useDispatch();
+
   const [score, setScore] = useState(0);
 
   const questions = route.params.questions;
@@ -20,6 +25,7 @@ function Result({ navigation, route }) {
 
   const tryAgain = () => {
     navigation.navigate('Intro');
+    dispatch(resetIndex());
   };
 
   useEffect(() => {
@@ -30,7 +36,7 @@ function Result({ navigation, route }) {
     <View style={styles.container}>
       <Text style={styles.mainText}>Game Over</Text>
       <Text style={styles.infoText}>
-        Your score {score} out of {questions.length}
+        Your score <Text style={score >= 5 ? [styles.goodScore, styles.bold] : [styles.badScore, styles.bold]}>{score}</Text> out of <Text style={styles.bold}>{questions.length}</Text>
       </Text>
       <Button title="Try Again" onPress={tryAgain} btnStyle={styles.btn} />
       <Button title="Save Score" onPress={() => null}/>
