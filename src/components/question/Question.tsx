@@ -1,13 +1,13 @@
 // React
 import { View, Text } from 'react-native';
 
-import { Question } from '../../store/questions/_types/question';
+import { IQuestion } from '../../store/questions/_types/question';
 
 // styles
 import styles from '../../assets/styles/Question.style';
 
 interface QuestionProps {
-  questions: Question[];
+  questions: IQuestion[];
   index: number;
 }
 

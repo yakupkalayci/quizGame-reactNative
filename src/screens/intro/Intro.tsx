@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { AppDispatch } from '../../store/store';
 import { setUser, setDifficultyState, setScreenName } from '../../store/user/userSlice';
-import { fetchQuestions } from '../../store/questions/questionsSlice';
 
 // Constants
 import { difficultyItems } from '../../common/constants/dropdown/difficulties';
@@ -38,7 +37,7 @@ function Intro({ navigation }) {
     if (username) {
       dispatch(setUser(username));
       dispatch(setDifficultyState(difficulty));
-      dispatch(fetchQuestions);
+      dispatch({ type: 'fetchQuestions' })     
       navigation.navigate('Quiz');
       dispatch(setScreenName('quiz'));
     } else {

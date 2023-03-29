@@ -49,7 +49,11 @@ function Quiz({ navigation }) {
     const result = selected === rightAnswer;
 
     dispatch(setAnswer({ userAnswer: selected, result, index }));
-    console.log("RESULT:", result);
+    if(result) {
+      showToast(ALERT_TYPE.SUCCESS, 'Correct!', '', 1000);
+    } else {
+      showToast(ALERT_TYPE.WARNING, 'Wrong!', '', 1000);
+    }
   }
 
   // opens next question
@@ -59,10 +63,8 @@ function Quiz({ navigation }) {
       if (index + 1 <= questions.length - 1) {
         setSelected(undefined);
       } else {
-        setTimeout(() => {
-          navigation.navigate('Result');
-          dispatch(setScreenName('result'));
-        }, 3000);
+        navigation.navigate('Result');
+        dispatch(setScreenName('result'));
       }
     } else {
       showToast(ALERT_TYPE.WARNING, 'Warning', 'Please choose an answer!');

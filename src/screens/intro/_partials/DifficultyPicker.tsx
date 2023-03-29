@@ -32,7 +32,7 @@ function DifficultyPicker(props: DifficultyPickerProps) {
         >
         {
             items.map(item => (
-                <Picker.Item label={item.label} value={item.value} enabled={item.enabled} style={item.style} />                
+                <Picker.Item key={item.value} label={item.label} value={item.value} enabled={item.enabled} style={item.style} />                
             ))
         }
         </Picker>
