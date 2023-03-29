@@ -1,14 +1,17 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import { option } from '../../common/constants/question/options';
+
 import styles from '../../assets/styles/RadioGroup.style';
 
 interface RadioGroupProps {
-  data: any[];
+  data: option[];
   onSelect: (value) => void;
-  selected?: any;
+  selected?: string;
 }
 
 export default function RadioGroup(props: RadioGroupProps) {
+  // destruct props
   const { data, onSelect, selected } = props;
 
   return (

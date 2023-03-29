@@ -27,8 +27,5 @@ export default StyleSheet.create({
   pickerContainer: {
     width: '60%',
     marginBottom: 15
-  },
-  pickerItem: {
-    fontSize: 21
   }
 });

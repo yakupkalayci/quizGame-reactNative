@@ -5,39 +5,40 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { AppDispatch } from '../../store/store';
 import { setUser, setDifficultyState, setScreenName } from '../../store/user/userSlice';
+import { fetchQuestions } from '../../store/questions/questionsSlice';
 
 // Constants
-import { DROPDOWN_DIFFICULY_VALUES } from '../../common/constants/dropdown/dropdownConstants';
+import { difficultyItems } from '../../common/constants/dropdown/difficulties';
 import { DifficultyTypes } from '../../common/constants/dropdown/dropdownConstants';
 import { ALERT_TYPE } from 'react-native-alert-notification';
 
 // Utils
 import { showToast } from '../../common/utils/showToast';
 
-import { Picker } from '@react-native-picker/picker';
-
 // Components
+import DifficultyPicker from './_partials/DifficultyPicker';
 import Button from '../../components/button/Button';
 
+// Style
 import styles from '../../assets/styles/Intro.style';
 
 function Intro({ navigation }) {
-  const { username: usernameState, difficulty: difficultyState , screen} = useSelector((state: RootState) => state.user);
+  // useSelector
+  const { username: usernameState, difficulty: difficultyState } = useSelector((state: RootState) => state.user);
 
-  useEffect(() => {
-    setScreenName('intro')
-  }, []);
-
+  // States
   const [username, setUsername] = useState(usernameState);
   const [difficulty, setDifficulty] = useState<DifficultyTypes>(difficultyState);
 
-  const dispatch:AppDispatch = useDispatch();
+  // Dispatch
+  const dispatch: AppDispatch = useDispatch();
 
+  // Starts the game
   const handleStart = () => {
-    if(username) {
+    if (username) {
       dispatch(setUser(username));
       dispatch(setDifficultyState(difficulty));
-      dispatch({ type: 'fetchQuestions' })
+      dispatch(fetchQuestions);
       navigation.navigate('Quiz');
       dispatch(setScreenName('quiz'));
     } else {
@@ -45,23 +46,16 @@ function Intro({ navigation }) {
     }
   };
 
+  // useEffect
+  useEffect(() => {
+    setScreenName('intro')
+  }, []);
+
   return (
     <KeyboardAvoidingView style={styles.intro}>
       <Text style={styles.text}>Username:</Text>
       <TextInput style={styles.input} value={username} onChangeText={setUsername} />
-      <Picker
-        selectedValue={difficulty}
-        onValueChange={(value) => {
-          setDifficulty(value);
-        }}
-        enabled={true}
-        mode={'dropdown'}
-        style={styles.pickerContainer}
-      >
-        <Picker.Item label="Easy" value={DROPDOWN_DIFFICULY_VALUES.EASY} enabled={true} style={styles.pickerItem} />
-        <Picker.Item label="Medium" value={DROPDOWN_DIFFICULY_VALUES.MEDIUM} enabled={true} style={styles.pickerItem} />
-        <Picker.Item label="Hard" value={DROPDOWN_DIFFICULY_VALUES.HARD} style={styles.pickerItem} />
-      </Picker>
+      <DifficultyPicker state={difficulty} onChange={setDifficulty} items={difficultyItems} enabled={true} mode={'dropdown'} style={styles.pickerContainer} />
       <Button title="Start" onPress={handleStart} />
     </KeyboardAvoidingView>
   );

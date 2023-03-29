@@ -1,44 +1,49 @@
+// React
 import { useState } from 'react';
 import { View } from 'react-native';
-import Question from '../../components/question/Question';
-import RadioGroup from '../../components/radio/RadioGroup';
-import NextButton from './_partials/NextButton';
 
-import { showToast } from '../../common/utils/showToast';
-import { ALERT_TYPE } from 'react-native-alert-notification';
-
-import styles from '../../assets/styles/Quiz.style';
+// Redux
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAnswer } from '../../store/questions/questionsSlice';
 import { setScreenName } from '../../store/user/userSlice';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 
-function Quiz({ navigation }) {
-  // const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState();
+// Partials
+import NextButton from './_partials/NextButton';
 
+// Components
+import Question from '../../components/question/Question';
+import RadioGroup from '../../components/radio/RadioGroup';
+
+// Constants
+import { ALERT_TYPE } from 'react-native-alert-notification';
+import { options } from '../../common/constants/question/options';
+
+// Utils
+import { showToast } from '../../common/utils/showToast';
+
+// Styles
+import styles from '../../assets/styles/Quiz.style';
+
+function Quiz({ navigation }) {
+  // useSelector
   const { questions, index } = useSelector((state:RootState) => state.questions);
 
+  // useDispatch
   const dispatch:AppDispatch = useDispatch();
 
+  // State
+  const [selected, setSelected] = useState<string>();
 
-  const options = [
-    {
-      id: 1,
-      text: 'True'
-    },
-    {
-      id: 2,
-      text: 'False'
-    }
-  ];
-
+  // Functions
+  // selects answer
   const handleSelect = (value) => {
     setSelected(value);
   };
 
+  // check answer and set result to the store
   const checkAnswer = () => {
     const rightAnswer = questions[index].correct_answer;
     const result = selected === rightAnswer;
@@ -47,15 +52,15 @@ function Quiz({ navigation }) {
     console.log("RESULT:", result);
   }
 
+  // opens next question
   const handleNext = () => {
     if(selected) {
       checkAnswer();
       if (index + 1 <= questions.length - 1) {
-        // setIndex((prev) => prev + 1);
         setSelected(undefined);
       } else {
         setTimeout(() => {
-          navigation.navigate('Result', { questions });
+          navigation.navigate('Result');
           dispatch(setScreenName('result'));
         }, 3000);
       }

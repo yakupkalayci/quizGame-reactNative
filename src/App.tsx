@@ -1,8 +1,16 @@
-import DefaultLayout from './layouts/DefaultLayout';
-import Router from './navigation/Router';
+// Redux
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+
+// Alert Notification
 import { AlertNotificationRoot } from 'react-native-alert-notification';
+
+// Layout
+import DefaultLayout from './layouts/DefaultLayout';
+
+// Router
+import Router from './navigation/Router';
+
 
 function App(): JSX.Element {
   return (

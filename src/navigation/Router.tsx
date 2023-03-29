@@ -1,7 +1,9 @@
+// React Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { navigationRef } from './useNavigate';
 
+// Screens
 import Intro from '../screens/intro/Intro';
 import Quiz from '../screens/quiz/Quiz';
 import Result from '../screens/result/Result';

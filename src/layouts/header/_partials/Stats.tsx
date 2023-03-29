@@ -1,23 +1,33 @@
+// React
 import { View, Text } from 'react-native';
+
+// Store
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { setScreenName } from '../../../store/user/userSlice';
 import { resetIndex } from '../../../store/questions/questionsSlice';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../store/store';
 
+// useNavigate
 import * as useNavigate from '../../../navigation/useNavigate';
 
+// Components
 import Button from '../../../components/button/Button';
 
+// styles
 import styles from '../../../assets/styles/Stats.style';
 
 function Stats() {
+    // useSelector
     const { username, difficulty } = useSelector((state:RootState) => state.user);  
     const index = useSelector((state: RootState) => state.questions.index);  
 
+    // useDispatch
     const dispatch:AppDispatch = useDispatch();
 
+    // functions
+    // quit the game
     const handleQuit = () => {
         useNavigate.navigate('Intro');
         dispatch(setScreenName('intro'));

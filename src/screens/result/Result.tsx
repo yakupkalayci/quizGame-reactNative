@@ -1,20 +1,29 @@
+// React
 import { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 
-import { useDispatch } from 'react-redux';
+// Store
+import { useDispatch, useSelector } from 'react-redux';
 import { resetIndex } from '../../store/questions/questionsSlice';
+import { RootState } from '../../store/store';
 
+// Components
 import Button from '../../components/button/Button';
 
+// styles
 import styles from '../../assets/styles/Result.style';
 
-function Result({ navigation, route }) {
+function Result({ navigation }) {
+  // useSelector
+  const questions = useSelector((state:RootState) => state.questions.questions);
+
+  // useDispatch
   const dispatch = useDispatch();
 
+  // useState
   const [score, setScore] = useState(0);
 
-  const questions = route.params.questions;
-
+  // calculates score
   const calcScore = () => {
     questions.forEach((item) => {
       if (item.users_answer.result === true) {
@@ -23,11 +32,13 @@ function Result({ navigation, route }) {
     });
   };
 
+  // navigates to intro page
   const tryAgain = () => {
     navigation.navigate('Intro');
     dispatch(resetIndex());
   };
 
+  // useEffect
   useEffect(() => {
     calcScore();
   }, []);

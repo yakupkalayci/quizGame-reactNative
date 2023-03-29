@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+import { Question } from './_types/question';
+
+interface InıtıalState {
+  loading: boolean,
+  error: any,
+  questions: Question[],
+  index: number
+}
+
+const initialState:InıtıalState = {
   loading: false,
   error: null,
   questions: [],
