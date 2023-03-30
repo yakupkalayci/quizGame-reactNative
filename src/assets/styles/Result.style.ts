@@ -18,7 +18,10 @@ export default StyleSheet.create({
     fontSize: 20,
     marginBottom: 20
   },
-  btn: {
+  btnShowAnswers: {
+    backgroundColor: 'blue'
+  },
+  btnTryAgain: {
     backgroundColor: 'green'
   },
   badScore: {

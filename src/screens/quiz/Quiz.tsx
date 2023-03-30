@@ -74,7 +74,7 @@ function Quiz({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Question questions={questions} index={index} />
+      <Question question={questions[index]?.question} />
       <RadioGroup data={options} selected={selected} onSelect={handleSelect} />
       <NextButton onPress={handleNext} />
     </View>
