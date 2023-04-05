@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Question } from './_types/question';
+import { IQuestion } from './_types/question';
 
 interface InıtıalState {
   loading: boolean,
   error: any,
-  questions: Question[],
+  questions: IQuestion[],
   index: number
 }
 
@@ -13,7 +13,7 @@ const initialState:InıtıalState = {
   loading: false,
   error: null,
   questions: [],
-  index: 1
+  index: 0
 };
 
 export const questionsSlice = createSlice({
@@ -40,7 +40,7 @@ export const questionsSlice = createSlice({
       };
     },
     resetIndex: (state) => {
-      state.index = 1;
+      state.index = 0;
     }
   }
 });

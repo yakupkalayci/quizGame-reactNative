@@ -1,6 +1,6 @@
 // React
 import { useState } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 
 // Redux
 import { RootState } from '../../store/store';
@@ -29,10 +29,10 @@ import styles from '../../assets/styles/Quiz.style';
 
 function Quiz({ navigation }) {
   // useSelector
-  const { questions, index } = useSelector((state:RootState) => state.questions);
+  const { questions, index, loading, error } = useSelector((state: RootState) => state.questions);
 
   // useDispatch
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   // State
   const [selected, setSelected] = useState<string>();
@@ -49,18 +49,18 @@ function Quiz({ navigation }) {
     const result = selected === rightAnswer;
 
     dispatch(setAnswer({ userAnswer: selected, result, index }));
-    if(result) {
-      showToast(ALERT_TYPE.SUCCESS, 'Correct!', '', 1000);
+    if (result) {
+      showToast(ALERT_TYPE.SUCCESS, 'Correct!', '', 500);
     } else {
-      showToast(ALERT_TYPE.WARNING, 'Wrong!', '', 1000);
+      showToast(ALERT_TYPE.WARNING, 'Wrong!', '', 500);
     }
   }
 
   // opens next question
   const handleNext = () => {
-    if(selected) {
+    if (selected) {
       checkAnswer();
-      if (index + 1 <= questions.length - 1) {
+      if (index + 1 < questions.length) {
         setSelected(undefined);
       } else {
         navigation.navigate('Result');
@@ -70,13 +70,21 @@ function Quiz({ navigation }) {
       showToast(ALERT_TYPE.WARNING, 'Warning', 'Please choose an answer!');
     }
 
-  };
+  };  
 
   return (
     <View style={styles.container}>
-      <Question question={questions[index]?.question} />
-      <RadioGroup data={options} selected={selected} onSelect={handleSelect} />
-      <NextButton onPress={handleNext} />
+      {
+        loading ? <ActivityIndicator size='large' /> :
+          error ? <Text>{error}</Text>
+            : (
+              <>
+                <Question question={questions[index]?.question} />
+                <RadioGroup data={options} selected={selected} onSelect={handleSelect} />
+                <NextButton onPress={handleNext} />
+              </>
+            )
+      }
     </View>
   );
 }

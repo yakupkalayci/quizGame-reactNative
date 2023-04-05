@@ -47,7 +47,7 @@ function Stats() {
                 </View>
             </View>
             <View>
-                <Text style={[styles.textWeight, styles.textSize]}>{index}/10</Text>
+                <Text style={[styles.textWeight, styles.textSize]}>{index+1}/10</Text>
                 <Button title='Quit' onPress={handleQuit} btnStyle={styles.button} titleStyle={styles.textSize}/>
             </View>
         </View>

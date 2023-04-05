@@ -27,17 +27,19 @@ function AnswersModal(props: AnswerModalProps) {
         <Modal
             isVisible={isVisible}
             onBackdropPress={onModalEvent}
-            onSwipeComplete={onModalEvent}
-            swipeDirection={'down'}
-            propagateSwipe={true}
             style={styles.modal}
         >
             <ScrollView>
                 <View style={styles.view}>
-                    <Text style={styles.modalTitle}>Answers</Text>
+                    <View style={styles.header}>
+                        <Text style={styles.modalTitle}>Index</Text>
+                        <Text style={styles.modalTitle}>Question</Text>
+                        <Text style={styles.modalTitle}>Answer</Text>
+                    </View>
                     {
-                        questions.map(item => (
-                            <View style={styles.question}>
+                        questions.map((item, index) => (
+                            <View style={styles.question} key={item.question}>
+                                <Text style={styles.index}>{index + 1}</Text>
                                 <Question question={item.question} />
                                 <Text style={item.correct_answer === 'True' ? [styles.correctAnswer, styles.answerText] : [styles.wrongAnswer, styles.answerText]}>{item.correct_answer}</Text>
                             </View>

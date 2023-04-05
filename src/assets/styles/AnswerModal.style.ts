@@ -4,7 +4,8 @@ export default StyleSheet.create({
     modal: {
         justifyContent: 'flex-end',
         margin: 0,
-        marginTop: 350
+        marginTop: 350,
+        zIndex: 100
     },
     view: {
         justifyContent: 'center',
@@ -21,7 +22,13 @@ export default StyleSheet.create({
     modalTitle: {
         fontWeight: 'bold',
         fontSize: 17,
-        color: '#000'
+        color: '#000',
+        marginBottom: 10
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
     },
     answerText: {
         fontWeight: 'bold'
@@ -31,5 +38,9 @@ export default StyleSheet.create({
     },
     wrongAnswer: {
         color: 'red'
+    },
+    index: {
+        fontWeight: 'bold',
+        height: 30
     }
 });
