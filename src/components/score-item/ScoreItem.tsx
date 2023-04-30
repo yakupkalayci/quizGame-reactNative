@@ -1,6 +1,10 @@
+// React Native
 import { View, Text, TouchableHighlight, TouchableOpacity, Animated, Image, Dimensions } from 'react-native'
+
+// Swipe list view
 import { SwipeListView } from 'react-native-swipe-list-view';
 
+// styles
 import styles from '../../assets/styles/ScoreItem.style';
 
 interface ScoreItemProps {

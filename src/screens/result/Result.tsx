@@ -20,6 +20,7 @@ import ScoresModal from './_partials/ScoresModal';
 // Utils
 import { showToast } from '../../common/utils/showToast';
 import { getSavedScoresFromStorage } from '../../common/utils/getSavedScores';
+import { formatDate } from '../../common/utils/formatDate';
 
 // Constants
 import { ALERT_TYPE } from 'react-native-alert-notification';
@@ -30,7 +31,6 @@ import DialogBox from '../../components/dialog-box/DialogBox';
 
 // styles
 import styles from '../../assets/styles/Result.style';
-import Dialog from 'react-native-dialog';
 
 function Result({ navigation }) {
   // useSelector
@@ -78,7 +78,7 @@ function Result({ navigation }) {
   const onPressOK = async () => {
     const newScore = {
       id: uuid(),
-      date: Date.now(),
+      date: formatDate(new Date()),
       username,
       score
     };
@@ -88,10 +88,9 @@ function Result({ navigation }) {
       const newData = [...existingData, newScore];
       await AsyncStorage.setItem('scores', JSON.stringify(newData));
       setSavedScore(newScore);
-      // setSavedScore('x');¨
-      showToast(ALERT_TYPE.SUCCESS, "Success", "Saved score!");
       setDisableSave(true);
       setScoresModal(!scoresModal);
+      showToast(ALERT_TYPE.SUCCESS, 'Info', 'Swipe left to delete');
     } catch(err) {
       console.log(err);
       showToast(ALERT_TYPE.DANGER, "Error", `${err}`);
