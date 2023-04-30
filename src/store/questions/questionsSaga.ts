@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, fork } from 'redux-saga/effects';
 import axios from 'axios';
 import { decode } from 'html-entities';
 import { fetchQuestions, fetchQuestionsSuccess, fetchQuestionsFailure } from './questionsSlice';
@@ -30,6 +30,10 @@ function* fetchQuestionsSaga() {
     }
 }
 
-export function* QuestionsSaga() {
+function* watchQuestionsSaga() {
     yield takeLatest('fetchQuestions', fetchQuestionsSaga);
 }
+
+export const QuestionsSaga = [
+    fork(watchQuestionsSaga)
+];

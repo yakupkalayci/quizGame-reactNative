@@ -4,7 +4,9 @@ import createSagaMiddleware from '@redux-saga/core';
 // Slices
 import userSlice from './user/userSlice';
 import questionsSlice from './questions/questionsSlice';
-import { QuestionsSaga } from './questions/questionsSaga';
+
+// Sagas
+import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +18,7 @@ export const store = configureStore({
     middleware: [sagaMiddleware]
 });
 
-sagaMiddleware.run(QuestionsSaga);
+sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

@@ -14,5 +14,9 @@ export default StyleSheet.create({
     fontSize: 21,
     color: '#e6e6e6',
     letterSpacing: 1.4
+  },
+  disabled: {
+    backgroundColor: 'gray',
+    opacity: 0.8,
   }
 });

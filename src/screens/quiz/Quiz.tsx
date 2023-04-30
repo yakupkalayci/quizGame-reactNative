@@ -24,6 +24,9 @@ import { options } from '../../common/constants/question/options';
 // Utils
 import { showToast } from '../../common/utils/showToast';
 
+// Types
+import { NextBtnTitles } from '../../common/constants/button/titles';
+
 // Styles
 import styles from '../../assets/styles/Quiz.style';
 
@@ -36,6 +39,7 @@ function Quiz({ navigation }) {
 
   // State
   const [selected, setSelected] = useState<string>();
+  const [btnTitle, setBtnTitle] = useState<NextBtnTitles>('Next');
 
   // Functions
   // selects answer
@@ -60,9 +64,14 @@ function Quiz({ navigation }) {
   const handleNext = () => {
     if (selected) {
       checkAnswer();
+
       if (index + 1 < questions.length) {
         setSelected(undefined);
-      } else {
+        if(index + 1 === questions.length - 1) {
+          setBtnTitle('Finish');
+        }
+      }
+      else {
         navigation.navigate('Result');
         dispatch(setScreenName('result'));
       }
@@ -81,7 +90,7 @@ function Quiz({ navigation }) {
               <>
                 <Question question={questions[index]?.question} />
                 <RadioGroup data={options} selected={selected} onSelect={handleSelect} />
-                <NextButton onPress={handleNext} />
+                <NextButton onPress={handleNext} title={btnTitle}/>
               </>
             )
       }

@@ -47,7 +47,7 @@ function Intro({ navigation }) {
 
   // useEffect
   useEffect(() => {
-    setScreenName('intro')
+    setScreenName('intro');
   }, []);
 
   return (
